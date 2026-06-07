@@ -1,0 +1,359 @@
+Program Documentation
+Local Game Store Tournament Management Platform — Version 1.0
+
+Project Overview
+
+The Local Game Store Tournament Management Platform is a console-based program written in the C programming language. The purpose of the system is to support the organization of board game and card game tournaments in local hobby stores.
+
+Version 1.0 of the program provides the basic functionality required to manage users, assign roles, create tournaments, display a calendar of events, register players for tournaments, and show detailed tournament information.
+
+The program uses text files as a simple form of persistent data storage.
+
+Main Goal of the Program
+
+The main goal of the program is to create a simple prototype of a tournament management system for local game stores.
+
+The system is designed to:
+
+simplify tournament organization,
+allow players to register for events,
+provide a calendar of upcoming tournaments,
+separate user permissions using roles,
+store data between program sessions.
+User Roles
+
+The program uses a role-based access system. Each user has one of three possible roles:
+
+3.1 Admin
+
+The administrator has the highest level of access.
+
+Admin users can:
+
+add new tournaments,
+view the calendar,
+view tournament details,
+register for tournaments,
+change the roles of other users.
+
+3.2 Organizer
+
+The organizer role is intended for users who create and manage tournaments.
+
+Organizers can:
+
+add new tournaments,
+view the calendar,
+view tournament details.
+
+3.3 Player
+
+The player role is intended for regular users.
+
+Players can:
+
+view the calendar,
+register for tournaments,
+view tournament details.
+
+Newly registered users are automatically assigned the role of “player”. Users cannot choose their own role during registration. Roles can only be changed by an administrator.
+
+Program Features
+
+4.1 User Registration
+
+The program allows new users to create an account.
+
+During registration, the user enters:
+
+username,
+password.
+
+The username must be unique. If the username already exists, the program does not allow a new account to be created with the same name.
+
+After successful registration, the user is assigned the default role: player.
+
+4.2 User Login
+
+Users can log in using their username and password.
+
+The program checks the entered data against the information stored in text files.
+
+After successful login, the program loads the user’s role and displays a menu based on that role.
+
+4.3 Role Management
+
+The administrator can change the role of another user.
+
+Available roles are:
+
+admin,
+organizer,
+player.
+
+This allows the system to control access to specific features and separate responsibilities between different types of users.
+
+4.4 Tournament Creation
+
+Admins and organizers can create new tournaments.
+
+Each tournament contains the following information:
+
+tournament ID,
+tournament name,
+game name,
+organizer username,
+day,
+month,
+year,
+hour,
+minute.
+
+Tournament IDs are generated automatically. This allows multiple tournaments to have the same name while still being uniquely identified by their ID.
+
+4.5 Calendar
+
+The calendar function displays tournaments for a selected month and year.
+
+The displayed tournaments are sorted by:
+
+year,
+month,
+day,
+hour,
+minute.
+
+For each tournament, the calendar shows:
+
+tournament ID,
+tournament name,
+game name,
+date,
+time,
+number of registered players.
+
+4.6 Tournament Registration
+
+Players can register for a tournament by entering the tournament ID.
+
+The system checks whether the player is already registered for the selected tournament. If the player is already registered, the program prevents duplicate registration.
+
+Registrations are stored in a text file.
+
+4.7 Tournament Details
+
+The tournament details function displays extended information about a selected tournament.
+
+The user enters the tournament ID, and the program displays:
+
+tournament name,
+game name,
+organizer username,
+date,
+time,
+list of registered players.
+
+This function allows users to quickly check who is organizing the event and which players have already registered.
+
+Data Storage
+
+The program stores data in text files. Each file is responsible for a specific type of data.
+
+5.1 Name.txt
+
+Stores usernames.
+
+Each username is stored in a separate line.
+
+Example:
+
+admin
+john
+anna
+
+5.2 Password.txt
+
+Stores user passwords.
+
+Each password is stored in the same line order as the usernames in Name.txt.
+
+Example:
+
+1234
+password1
+test123
+
+The first password belongs to the first user from Name.txt, the second password belongs to the second user, and so on.
+
+5.3 Roles.txt
+
+Stores user roles.
+
+Format:
+
+username role
+
+Example:
+
+admin admin
+john player
+anna organizer
+
+5.4 tournaments.txt
+
+Stores tournament data.
+
+Format:
+
+ID name game organizer day month year hour minute
+
+Example:
+
+1 chess_event chess admin 10 6 2025 14 30
+2 mtg_friday mtg anna 12 6 2025 18 00
+
+5.5 registrations.txt
+
+Stores player registrations.
+
+Format:
+
+tournament_ID username
+
+Example:
+
+1 john
+1 anna
+2 john
+
+Program Structure
+
+The program is divided into several functional parts:
+
+6.1 User Management
+
+Responsible for:
+
+registration,
+login,
+checking if a username already exists,
+loading user roles.
+
+Main functions:
+
+registerUser()
+login()
+isUsernameTaken()
+getRole()
+
+6.2 Role Management
+
+Responsible for changing user permissions.
+
+Main function:
+
+changeRole()
+
+6.3 Tournament Management
+
+Responsible for:
+
+creating tournaments,
+generating tournament IDs,
+storing tournament data.
+
+Main functions:
+
+addTournament()
+getNextTournamentID()
+
+6.4 Calendar Management
+
+Responsible for:
+
+displaying tournaments by month and year,
+sorting tournaments by date and time,
+showing the number of registered players.
+
+Main functions:
+
+showCalendar()
+compare()
+countPlayers()
+
+6.5 Registration Management
+
+Responsible for registering players for tournaments and preventing duplicate registrations.
+
+Main function:
+
+registerToTournament()
+
+6.6 Tournament Details
+
+Responsible for displaying detailed information about a selected tournament.
+
+Main function:
+
+showDetails()
+Initial File Setup
+
+Before the first program run, the following files should be created in the same folder as the program:
+
+Name.txt
+
+admin
+
+Password.txt
+
+1234
+
+Roles.txt
+
+admin admin
+
+tournaments.txt
+
+This file can be empty.
+
+registrations.txt
+
+This file can be empty.
+
+This setup creates the first administrator account.
+
+Limitations of Version 1.0
+
+Version 1.0 is a working prototype, but it has several limitations:
+
+The program uses a console interface only.
+Text files are used instead of a database.
+Passwords are stored in a simple form.
+Tournament and game names cannot contain spaces.
+There is no graphical user interface.
+Date validation is limited.
+There is no player limit for tournaments.
+There is no search function for stores or events.
+There is no ranking or statistics system.
+Possible Future Improvements
+
+Future versions of the program could include:
+
+password hashing or encryption,
+database integration,
+graphical user interface,
+web application version,
+mobile application,
+tournament player limits,
+filtering tournaments by game,
+player rankings,
+statistics for players and organizers,
+integration with Discord or Facebook,
+store map and location-based event search.
+Summary
+
+Version 1.0 of the Local Game Store Tournament Management Platform provides a functional prototype of a tournament organization system.
+
+The program supports user accounts, role-based access, tournament creation, calendar display, player registration, and tournament details. Data is stored in text files, which makes the system simple and easy to test.
+
+Although the current version is limited to a console interface, it provides a solid foundation for future development into a larger web or mobile platform.
